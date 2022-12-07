@@ -12,12 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.devcapu.exemplosarquitetura.R
-import br.com.devcapu.exemplosarquitetura.ui.stateholder.CardCursoUiState
 import br.com.devcapu.exemplosarquitetura.ui.theme.ExemplosArquiteturaTheme
 
 class MainActivity : ComponentActivity() {
@@ -32,11 +32,8 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun CardCurso(cursoUiState: CardCursoUiState) {
-    Card(
-        modifier = Modifier.padding(8.dp),
-        elevation = 4.dp
-    ) {
+fun CardCurso(curso: CardCursoUiState) {
+    Card(modifier = Modifier.padding(8.dp), elevation = 4.dp) {
         Row(
             modifier = Modifier
                 .padding(8.dp)
@@ -47,8 +44,9 @@ fun CardCurso(cursoUiState: CardCursoUiState) {
             Image(
                 modifier = Modifier.size(64.dp),
                 painter = painterResource(id = R.drawable.kotlin),
-                contentDescription = null,
+                contentDescription = stringResource(R.string.icone_do_curso),
             )
+
             Column(
                 verticalArrangement = Arrangement.spacedBy(2.dp),
                 horizontalAlignment = Alignment.Start
@@ -59,7 +57,7 @@ fun CardCurso(cursoUiState: CardCursoUiState) {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     LinearProgressIndicator(progress = 0.75f)
-                    if (true) {
+                    if (curso.finalizado) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_baseline_assignment_turned_in_24),
                             contentDescription = null,
@@ -68,11 +66,11 @@ fun CardCurso(cursoUiState: CardCursoUiState) {
                     }
                 }
                 Text(
-                    text = "Android com Kotlin",
+                    text = curso.titulo,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 18.sp
                 )
-                Text(text = "testes instrumentados")
+                Text(text = curso.subtitulo)
             }
         }
     }
@@ -82,6 +80,30 @@ fun CardCurso(cursoUiState: CardCursoUiState) {
 @Composable
 fun DefaultPreview() {
     ExemplosArquiteturaTheme {
-        CardCurso(CardCursoUiState())
+        CardCurso(CardCursoUiState(
+            titulo = "Android com Kotlin",
+            subtitulo = "Testes instrumentados",
+            finalizado = true
+        ))
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview2() {
+    ExemplosArquiteturaTheme {
+        CardCurso(CardCursoUiState(
+            titulo = "Android com Kotlin",
+            subtitulo = "Testes de unidade",
+            finalizado = false
+        ))
+    }
+}
+
+data class CardCursoUiState(
+    val titulo: String = "",
+    val subtitulo: String = "",
+    val quandoClickar: () -> Unit = { },
+    val progresso: String = "",
+    val finalizado: Boolean = false,
+)
