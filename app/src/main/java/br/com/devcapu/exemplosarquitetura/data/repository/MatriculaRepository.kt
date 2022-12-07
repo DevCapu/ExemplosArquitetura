@@ -4,7 +4,7 @@ import android.util.Log
 import br.com.devcapu.exemplosarquitetura.config.TEM_INTERNET
 import br.com.devcapu.exemplosarquitetura.data.datasource.LocalMatriculaDataSource
 import br.com.devcapu.exemplosarquitetura.data.datasource.RemoteMatriculaDataSource
-import br.com.devcapu.exemplosarquitetura.domain.entity.Curso
+import br.com.devcapu.exemplosarquitetura.domain.model.Curso
 
 class MatriculaRepository(
     private val localMatriculaDataSource: LocalMatriculaDataSource,

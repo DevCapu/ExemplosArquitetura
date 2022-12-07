@@ -2,8 +2,8 @@ package br.com.devcapu.exemplosarquitetura.data.datasource
 
 import android.util.Log
 import br.com.devcapu.exemploarquiteturaandroid.aula4.entity.Instrutor
-import br.com.devcapu.exemplosarquitetura.domain.entity.Curso
-import br.com.devcapu.exemplosarquitetura.domain.entity.Video
+import br.com.devcapu.exemplosarquitetura.domain.model.Curso
+import br.com.devcapu.exemplosarquitetura.domain.model.Video
 
 class LocalMatriculaDataSource {
     fun atualizaProgresso(videoId: Long) {

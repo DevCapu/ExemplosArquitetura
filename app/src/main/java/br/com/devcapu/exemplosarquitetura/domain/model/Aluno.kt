@@ -1,4 +1,4 @@
-package br.com.devcapu.exemplosarquitetura.domain.entity
+package br.com.devcapu.exemplosarquitetura.domain.model
 
 import java.time.ZonedDateTime
 
