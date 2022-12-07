@@ -4,6 +4,7 @@ import android.util.Log
 import br.com.devcapu.exemplosarquitetura.config.TEM_INTERNET
 import br.com.devcapu.exemplosarquitetura.data.datasource.LocalMatriculaDataSource
 import br.com.devcapu.exemplosarquitetura.data.datasource.RemoteMatriculaDataSource
+import br.com.devcapu.exemplosarquitetura.domain.entity.Curso
 
 class MatriculaRepository(
     private val localMatriculaDataSource: LocalMatriculaDataSource,
@@ -20,5 +21,15 @@ class MatriculaRepository(
         } catch (exception: Exception) {
             Log.d("MatriculaRepository", "Não foi possivel atualizar o progresso")
         }
+    }
+
+    suspend fun buscaCursosMatriculados(): List<Curso> {
+        try {
+            val cursos = remoteMatriculaDataSource.buscaTodos()
+            localMatriculaDataSource.atualiza(cursos)
+        } catch (excecao: Exception) {
+            Log.e("MatriculaRepository", "Não foi possível buscar online os cursos")
+        }
+        return localMatriculaDataSource.buscaTodos()
     }
 }
